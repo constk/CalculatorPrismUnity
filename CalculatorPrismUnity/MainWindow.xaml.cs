@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prism.Commands;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CalculatorPrismUnity
 {
@@ -20,9 +8,28 @@ namespace CalculatorPrismUnity
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+
+        public new string Title = "MVVM Calculator";
+        private string _calculatorText;
+        public string CalculatorText
         {
-            InitializeComponent();
+            get => _calculatorText;
+            set => SetProperty(ref _calculatorText, value);
+        }
+
+        private void SetProperty(ref string calculatorText, string value)
+        {
+            calculatorText = value;
+        }
+        public DelegateCommand<string> AddNumberCommand { get; set; }
+        void RegisterCommands()
+        {
+            AddNumberCommand = new DelegateCommand<string>(AddNumber);
+        }
+
+        private void AddNumber(string obj)
+        {
+            CalculatorText += "5";
         }
     }
 }
